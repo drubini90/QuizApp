@@ -164,13 +164,15 @@ header h1 {
   transition: all 0.2s ease-in-out;
 }
 
-.answer button:hover,
-.answer button:focus {
+.answer button:hover:enabled,
+.answer button:focus:enabled {
   /* background: linear-gradient(180deg, #bf48f6 0%, #9b50f2 100%); */
   background: #cfdde2;
   color: rgb(23, 20, 20);
   /* box-shadow: 0 0 4px 2px rgba(255, 200, 60, 0.8); */
 }
+
+
 
 .answer button.selected {
   /* background: linear-gradient(180deg, #fbda81 0%, #f8b173 100%); */
@@ -182,6 +184,21 @@ header h1 {
   /* background: linear-gradient(180deg, #a1fa61 0%, #52d482 100%); */
   background: #5af59d;
   color: #2c203d;
+}
+
+
+.answer button:disabled.highlightCorrect {
+  /* background: linear-gradient(180deg, #a1fa61 0%, #52d482 100%); */
+  /* border: #5af59d; */
+  /* color: #0e4603; */
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: #c6f5d5; 
+}
+
+.answer button:hover:disabled{
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 .answer button.wrong {

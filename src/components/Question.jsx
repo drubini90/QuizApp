@@ -50,6 +50,7 @@ export default function Question({ index, onSelectAnswer, onSkipAnswer }) {
     <div id="question">
       <h2>{QUESTIONS[index].text}</h2>
       <Answers
+        index = {index}
         answers={QUESTIONS[index].answers}
         selectedAnswer={answer.selectedAnswer}
         answerState={answerState}
