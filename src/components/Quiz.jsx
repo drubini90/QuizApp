@@ -6,16 +6,25 @@ import Summary from './Summary.jsx';
 
 export default function Quiz() {
   const [userAnswers, setUserAnswers] = useState([]);
+  const [isNextButtonVisible, setNextButtonVisibility] = useState(false);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  
 
-  const activeQuestionIndex = userAnswers.length;
-  const quizIsComplete = activeQuestionIndex === QUESTIONS.length;
+  console.log(`userAnswers :${userAnswers.length}`);
+  const quizIsComplete = currentQuestionIndex === QUESTIONS.length;
 
-  const handleSelectAnswer = useCallback(function handleSelectAnswer(
-    selectedAnswer
-  ) {
+  const handleCurrentQuestionIndex = () => {
+    setCurrentQuestionIndex(userAnswers.length);
+    setNextButtonVisibility(false);
+  };
+
+
+  const handleSelectAnswer = useCallback(function handleSelectAnswer(selectedAnswer) {
+    console.log(`Updating the answer!`);
     setUserAnswers((prevUserAnswers) => {
       return [...prevUserAnswers, selectedAnswer];
     });
+    setNextButtonVisibility(()=>{ return true});
   },
   []);
 
@@ -27,15 +36,37 @@ export default function Quiz() {
   if (quizIsComplete) {
     return <Summary userAnswers={userAnswers} />
   }
+  let nextButtonStyle = "hidden";
+  if(isNextButtonVisible){
+    nextButtonStyle = "btnImage";
+  }
 
   return (
-    <div id="quiz">
+    <div className='wrapper'>
+    {/* <div id="quiz">
       <Question
-        key={activeQuestionIndex}
-        index={activeQuestionIndex}
+        key={currentQuestionIndex}
+        index={currentQuestionIndex}
         onSelectAnswer={handleSelectAnswer}
         onSkipAnswer={handleSkipAnswer}
       />
+    </div> */}
+    <div className='left-component'>
+    <div id="quiz">
+    <Question
+        key={currentQuestionIndex}
+        index={currentQuestionIndex}
+        onSelectAnswer={handleSelectAnswer}
+        onSkipAnswer={handleSkipAnswer}
+      />
+      </div>
+    </div>
+    <div className='right-component'>
+      <img src='src/assets/next1.png' alt='next button' className={nextButtonStyle} onClick={handleCurrentQuestionIndex}></img>
+    </div>
+    {/* <div id="btndiv">
+      <img src='src/assets/next1.png' alt='next button' className={nextButtonStyle} onClick={handleCurrentQuestionIndex}></img>
+    </div> */}
     </div>
   );
 }
